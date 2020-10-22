@@ -116,7 +116,24 @@ public class EksamenSBinTre<T> {
     }
 
     public int antall(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        //Bare en rask test for å sjekke om treet er tomt
+        if(tom()) return 0;
+
+        int antallVerdi = 0;
+        Node<T> p = rot;
+
+        while(p != null)
+        {
+            int cmp = comp.compare(verdi, p.verdi);
+            if(cmp < 0) p = p.venstre;
+            else
+            {
+                if (cmp == 0 ) antallVerdi++;
+                p=p.høyre;
+            }
+        }
+        return antallVerdi;
     }
 
     public void nullstill() {
