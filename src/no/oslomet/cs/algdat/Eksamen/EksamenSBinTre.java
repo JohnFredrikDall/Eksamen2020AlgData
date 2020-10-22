@@ -141,20 +141,39 @@ public class EksamenSBinTre<T> {
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        Node<T> q = p;
-        while(q.venstre != null){
-            q = q.venstre;
+        //Hvis noden har et venstrebarn kalles den metoden rekursivt på venstrebarnet
+        if(p.venstre != null)
+        {
+            p = førstePostorden(p.venstre);
         }
-        return q;
 
+        if(p.høyre != null) {
+            p = førstePostorden(p.høyre);
+        };
+        //Hvis noden ikke har et venstrebarn, men har et høyrebarn, kalles metoden rekursivt på høyrebarnet
+        return p;
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        Node<T> q = p;
-        while(q.venstre != null){
-            q = q.venstre;
+
+        //hvis p ikke har en forelder (p er rotnoden), så er p den siste i postorden.
+        if(p.forelder == null) return p;
+
+        //Hvis p er høyre barn til sin forelder F, er forelderen F den neste.
+        if(p == p.forelder.høyre) return p.forelder;
+
+
+        //Hvis p er venstre barn til sin forelder F, gjelder:
+            //Hvis p er enebarn (f.høyre er null), er forelderen f den neste
+            //Hvis p ikke er enebarn (dvs. f.høyre ikke er null), så er den neste den noden som kommer først i postorden i subtreet med f.høyre som rot.
+        if(p == p.forelder.venstre){
+            if(p.forelder.høyre == null) return p.forelder;
+            else{
+                førstePostorden(p.forelder.høyre);
+            }
+
         }
-        return q;
+        return p;
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
