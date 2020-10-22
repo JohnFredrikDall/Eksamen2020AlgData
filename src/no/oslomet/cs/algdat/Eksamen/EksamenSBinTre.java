@@ -141,11 +141,20 @@ public class EksamenSBinTre<T> {
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> q = p;
+        while(q.venstre != null){
+            q = q.venstre;
+        }
+        return q;
+
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> q = p;
+        while(q.venstre != null){
+            q = q.venstre;
+        }
+        return q;
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
