@@ -94,7 +94,7 @@ public class EksamenSBinTre<T> {
             p = cmp < 0 ? p.venstre : p.høyre;
         }
 
-        p = new Node<>(verdi);
+        p = new Node<>(verdi,q);
 
         if(q == null) rot = p;
         else if(cmp < 0) q.venstre = p;
