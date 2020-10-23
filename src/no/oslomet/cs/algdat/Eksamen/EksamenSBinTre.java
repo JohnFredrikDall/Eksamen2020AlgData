@@ -157,7 +157,7 @@ public class EksamenSBinTre<T> {
     private static <T> Node<T> nestePostorden(Node<T> p) {
 
         //hvis p ikke har en forelder (p er rotnoden), så er p den siste i postorden.
-        if(p.forelder == null) return p;
+        if(p.forelder == null) return null;
 
         //Hvis p er høyre barn til sin forelder F, er forelderen F den neste.
         if(p == p.forelder.høyre) return p.forelder;
@@ -169,7 +169,7 @@ public class EksamenSBinTre<T> {
         if(p == p.forelder.venstre){
             if(p.forelder.høyre == null) return p.forelder;
             else{
-                førstePostorden(p.forelder.høyre);
+                p = førstePostorden(p.forelder.høyre);
             }
 
         }
