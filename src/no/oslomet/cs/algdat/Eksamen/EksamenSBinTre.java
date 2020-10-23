@@ -201,11 +201,31 @@ public class EksamenSBinTre<T> {
     }
 
     public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        ArrayList<T> liste = new ArrayList<>();
+        ArrayDeque<Node<T>> queue = new ArrayDeque<>();
+        queue.add(rot);
+
+        while(!queue.isEmpty())
+        {
+            Node<T> current = queue.poll();
+
+            if(current.forelder == null) liste.add(current.verdi);
+
+            if(current.venstre != null){
+                queue.add(current.venstre);
+                liste.add(current.venstre.verdi);
+            }
+            if(current.høyre != null){
+                queue.add(current.høyre);
+                liste.add(current.høyre.verdi);
+            }
+        }
+
+        return liste;
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
     }
 
 
