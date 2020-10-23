@@ -225,7 +225,15 @@ public class EksamenSBinTre<T> {
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
+        EksamenSBinTre<K> tre = new EksamenSBinTre<>(c);
 
+        tre.rot = new Node<>(data.get(0),null);
+
+        for(int i = 1; i < data.size(); i++){
+            tre.leggInn(data.get(i));
+        }
+
+        return tre;
     }
 
 
