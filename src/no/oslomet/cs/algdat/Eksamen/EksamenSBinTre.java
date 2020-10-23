@@ -146,11 +146,11 @@ public class EksamenSBinTre<T> {
         {
             p = førstePostorden(p.venstre);
         }
-
+        //Hvis noden ikke har et venstrebarn, men har et høyrebarn, kalles metoden rekursivt på høyrebarnet
         if(p.høyre != null) {
             p = førstePostorden(p.høyre);
-        };
-        //Hvis noden ikke har et venstrebarn, men har et høyrebarn, kalles metoden rekursivt på høyrebarnet
+        }
+
         return p;
     }
 
@@ -177,10 +177,15 @@ public class EksamenSBinTre<T> {
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> p = førstePostorden(rot);
+        while (p != null){
+            oppgave.utførOppgave(p.verdi);
+            p=nestePostorden(p);
+        }
     }
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
+
         postordenRecursive(rot, oppgave);
     }
 
