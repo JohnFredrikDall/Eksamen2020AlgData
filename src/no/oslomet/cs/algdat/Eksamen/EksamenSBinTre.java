@@ -108,7 +108,57 @@ public class EksamenSBinTre<T> {
     }
 
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        /*
+        1. p har ingen barn. (p er en bladnode)
+        2. p har nøyaktig ett barn (venstre eller høyre barn)
+        3. p har to barn
+
+        p løsrives fra treet ved at refereanse ned dit "nulles"
+
+
+         */
+
+        if(verdi == null) return false;
+
+        Node<T> p = rot, q = null;
+
+        while(p != null){
+            int cmp = comp.compare(verdi, p.verdi);
+            if(cmp < 0) {
+                q = p; p = p.venstre;
+            }
+            else if (cmp > 0){
+                q = p; p = p.høyre;
+            }
+            else break;
+        }
+
+        if(p == null) return false;
+
+        if(p.venstre == null || p.høyre == null)
+        {
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;
+            if(p == rot) rot = b;
+            else if (p == q.venstre) q.venstre = b;
+            else q.høyre = b;
+        }
+        else
+        {
+            Node<T> s = p, r = p.høyre;
+            while(r.venstre != null)
+            {
+                s = r;
+                r = r.venstre;
+            }
+
+            p.verdi = r.verdi;
+
+            if(s != p) s.venstre = r.høyre;
+            else s.høyre = r.høyre;
+        }
+        antall--;
+        return true;
+
     }
 
     public int fjernAlle(T verdi) {
