@@ -112,7 +112,6 @@ public class EksamenSBinTre<T> {
         1. p har ingen barn. (p er en bladnode)
         2. p har nøyaktig ett barn (venstre eller høyre barn)
         3. p har to barn
-
         p løsrives fra treet ved at refereanse ned dit "nulles"
 
          */
@@ -140,14 +139,25 @@ public class EksamenSBinTre<T> {
         {
 
             Node<T> b = p.venstre != null ? p.venstre : p.høyre;
-            if(p == rot) rot = b;
+            if(p == rot){
+                rot = b;
+                if(b != null){
+                    b.forelder = null;
+                }
+
+            }
             else if (p == q.venstre) {
                 q.venstre = b;
-                q.venstre.forelder = q;
+                if(q.venstre != null){
+                    q.venstre.forelder = q;
+                }
             }
             else {
                 q.høyre = b;
-                q.høyre.forelder = q;
+                if(q.høyre != null){
+                    q.høyre.forelder = q;
+                }
+
             }
         }
         else
@@ -172,7 +182,19 @@ public class EksamenSBinTre<T> {
     }
 
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int antall = 0;
+        boolean k = true;
+
+        //kjør fjern(verdi) frem til den returnerer false
+        //når fjern(verdi) returnerer false, sett k til true og returner antall
+
+        while(k){
+            k = fjern(verdi);
+            if(k){
+                antall++;
+            }
+        }
+        return antall;
     }
 
     public int antall(T verdi) {
@@ -197,7 +219,23 @@ public class EksamenSBinTre<T> {
     }
 
     public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if(!tom()) nullstill(rot);
+        rot = null;
+        antall = 0;
+    }
+
+    public void nullstill(Node<T> p){
+        if (p.venstre != null)
+        {
+            nullstill(p.venstre);
+            p.venstre = null;
+        }
+        if (p.høyre != null)
+        {
+            nullstill(p.høyre);
+            p.høyre = null;
+        }
+        p.verdi = null;
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
