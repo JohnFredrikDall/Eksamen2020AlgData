@@ -9,7 +9,7 @@ public class Main {
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
 
-        tre.fjern(11);
-        tre.fjern(0);
+        tre.fjern(2);
+        tre.fjern(1);
     }
 }
