@@ -118,21 +118,31 @@ public class EksamenSBinTre<T> {
 
          */
 
+
+        //Sjekker inputverdi om er null
         if(verdi == null) return false;
 
+        //Setter p til rot, og q til hjelpevariabel
         Node<T> p = rot, q = null;
 
+
         while(p != null){
+            //sammenlikner p.verdi med input-verdi
             int cmp = comp.compare(verdi, p.verdi);
             if(cmp < 0) {
+                //hvis p.verdi er lavere enn p settes
+                //q = current node, p = venstre barn
                 q = p; p = p.venstre;
             }
             else if (cmp > 0){
+                //hvis p.verdi er høyere enn p settes
+                //q = current node, p = høyre barn
                 q = p; p = p.høyre;
             }
+            //hvis cmp blir 0(verdien er funnet), break
             else break;
         }
-
+        //dersom p == null(verdi ikke funnet i binærtreet, returner false)
         if(p == null) return false;
 
         if(p.venstre == null || p.høyre == null)
